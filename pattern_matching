@@ -1,0 +1,32 @@
+#include <iostream>
+#include <string.h>
+using namespace std;
+
+int main()
+{
+    string t, p;
+    cout << "Enter String of Text" << endl;
+    cin >> t;
+    cout << "Enter Pattern" << endl;
+    cin >> p;
+    bool k = false;
+
+    for (int i = 0; i <= (t.length() - p.length()); i++)
+    {
+        int j = 0;
+        while (j < p.length() && t[i + j] == p[j])
+        {
+
+            j++;
+        }
+        // bool k = false;
+        if (j == p.length())
+        {
+            cout << "Patter matched";
+            k = true;
+        }
+    }
+    if (k == false)
+        cout << "pattern never matched";
+    return 0;
+}
