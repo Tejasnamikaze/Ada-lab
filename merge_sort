@@ -1,0 +1,134 @@
+
+#include <iostream>
+#include <stdlib.h>
+using namespace std;
+// int l[100];
+void Merge(int, int, int, int);
+void mergesort(int, int, int);
+/*void Merge(int arr[], int beg, int mid, int end)
+{
+    int i, j, k, l[100];
+    i = beg;
+    j = mid + 1;
+    k = beg;
+    while (i <= mid && j <= end)
+    {
+        if (arr[i] <= arr[j])
+        {
+            l[k] = arr[i];
+            i++;
+            k++;
+        }
+        else
+        {
+            l[k] = arr[j];
+            j++;
+            k++;
+        }
+    }
+
+    if (i < mid)
+    {
+
+        while (i <= mid)
+        {
+            l[k] = arr[i];
+            k++;
+            i++;
+        }
+    }
+    if (j < end)
+    {
+        while (j <= end)
+        {
+            l[k] = arr[j];
+            k++;
+            j++;
+        }
+    }
+}*/
+void Merge(int arr[], int b, int m, int e)
+{
+
+    // Create L ← A[b..m] and M ← A[m+1..e]
+    int n1 = m - b + 1;
+    int n2 = e - m;
+    cout << n1 << " " << n2 << endl;
+
+    int L[n1], M[n2];
+
+    for (int i = 0; i < n1; i++)
+        L[i] = arr[b + i];
+    for (int j = 0; j < n2; j++)
+        M[j] = arr[m + 1 + j];
+
+    // Maintain current index of sub-arrays and main array
+    int i, j, k;
+    i = 0;
+    j = 0;
+    k = b;
+
+    // Until we reach either end of either L or M, pick larger among
+    // elements L and M and place them in the correct position at A[p..r]
+    while (i < n1 && j < n2)
+    {
+        if (L[i] <= M[j])
+        {
+            arr[k] = L[i];
+            i++;
+        }
+        else
+        {
+            arr[k] = M[j];
+            j++;
+        }
+        k++;
+    }
+
+    // When we run out of elements in either L or M,
+    // pick up the remaining elements and put in A[p..r]
+    while (i < n1)
+    {
+        arr[k] = L[i];
+        i++;
+        k++;
+    }
+
+    while (j < n2)
+    {
+        arr[k] = M[j];
+        j++;
+        k++;
+    }
+}
+void mergesort(int ar[], int beg, int end)
+{
+
+    // copy(a, a + 100, arr);
+    int b, e, m;
+    b = beg;
+    e = end;
+    if (b >= e)
+        return;
+
+    m = (b + e) / 2;
+    mergesort(ar, b, m);
+    mergesort(ar, m + 1, e);
+    Merge(ar, b, m, e);
+}
+void printArray(int A[], int size)
+{
+    for (int i = 0; i < size; i++)
+        cout << A[i] << " ";
+    cout << endl;
+}
+
+int main()
+{
+    int arr[] = {5, 6, 7, 10, 2, 1};
+    int size = sizeof(arr) / sizeof(arr[0]);
+    printArray(arr, size);
+    mergesort(arr, 0, size - 1);
+    printArray(arr, size);
+    return 0;
+}
